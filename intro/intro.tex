@@ -1,9 +1,28 @@
 \documentclass{article}
 
 \usepackage[utf8]{inputenc}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{graphicx}
 \usepackage{tikz}
 \usepackage{pgfplots}
+
 \pgfplotsset{width=10cm,compat=1.9}
+
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{purple},
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    captionpos=b
+}
 
 \title{Machine Learning - Week 1}
 \author{ZVENC}
@@ -99,6 +118,84 @@ The training set, which contains the input features and output targets, is fed i
     \end{axis}
 \end{tikzpicture}
 
-\noindent This is one-variable or \textit{univariate} linear regression, which means there's a single feature for each data point. Using the house example, it is possible to take other factors into consideration rather than just the size of the house such as number of bedrooms, location, etc.
+\noindent This is one-variable or \textit{univariate} linear regression, which means there's a single feature for each data point. Using the house price example, it is possible to take other factors into consideration rather than just the size of the house such as number of bedrooms, location, etc.
+
+\subsubsection{Linear Regression Implementation in Python}
+A linear regression model can be implemented in python using \texttt{numpy} and \texttt{matplotlib}. Here is a linear regression model for predicting house prices based on size using this training set:
+
+\begin{center}
+\centering
+\begin{tabular}{|c|c|} 
+\hline
+\textbf{$x$} & \textbf{$y$} \\ 
+\hline
+1.0 & 300.0 \\ 
+\hline
+2.0 & 500.0 \\ 
+\hline
+3.0 & 580.0 \\ 
+\hline
+4.0 & 830.0 \\ 
+\hline
+5.0 & 900.0 \\ 
+\hline
+6.0 & 1100.0 \\ 
+\hline
+\end{tabular}
+\center {House size in 1000$ft^2$($x$) and house price in \$1000($y$)}
+\end{center}
+
+\begin{lstlisting}[caption={Python Code for Linear Regression}]
+import numpy as np
+import matplotlib.pyplot as plt
+
+# feature array
+x_train = np.array([1.0, 2.0, 3.0, 4.0, 5.0, 6.0])
+
+# target array
+y_train = np.array([300.0, 500.0, 580.0, 830.0, 900.0, 1100.0 ])
+
+m = x_train.shape # number of training examples
+w = 170 # weight
+b = 100 # bias
+
+def compute_model_output(x, w, b):
+    """
+    Computes the prediction of a linear model
+    args:
+        x (ndarray (m,))    : data, size m
+        w, b (scalar)       : model parameters
+    returns:
+        f_wb (ndarray (m,)) : model prediction
+    """
+    m = x.shape[0]
+    f_wb = np.zeros(m)
+    for i in range(m):
+        f_wb[i] = w * x[i] + b
+    return f_wb
+
+x_i = 1.2
+cost_1200sqft = w * x_i + b
+print(f"cost of a 1200 sq. ft. house is predicted to be ${cost_1200sqft:.0f}K")
+
+f_wb = compute_model_output(x_train, w, b)
+plt.scatter(x_train, y_train, marker='.', c='black')
+plt.plot(x_train, f_wb, c='black', label='model prediction')
+plt.xlabel("size of house in 1000s sq. ft.")
+plt.ylabel("price of house in $1000s")
+plt.show()
+\end{lstlisting}
+\vfill
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth]{linear_regression.png}
+\end{figure}
+
+\begin{lstlisting}[caption={Code Output}]
+# cost of a 1200 sq. ft. house is predicted to be $304K
+\end{lstlisting}
+
+\noindent In the implementation, the features (\texttt{x\_train}) and targets (\texttt{y\_train}) are stored in respective \texttt{numpy} arrays. The number of training examples is obtained by finding the number of items in the features array, using the array's \texttt{.shape} method (it returns a tuple containing the size of the array along each dimension). The \texttt{compute\_model\_output} function creates an array containing the model's estimations of training set's targets, which is used to generate the graph. The weight and bias were initially arbitrarily set but later adjusted to fit the plots on the generated graph. With the accepted weight and bias, the model is used to provide an estimate of the price of a house that is 1200$ft^2$, which is \$304 000.
 
 \end{document}
