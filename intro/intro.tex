@@ -203,12 +203,12 @@ plt.show()
 In order to adjust the parameters of a linear regression model appropriately, it is necessary to have a reliable way to deduce how well the model is performing on the training data. This is acheived through the \textit{cost function}. This function compares the predictions of the model to the targets and outputs a number that is used to quantify the model's performance. The most commonly used linear regression cost function is called the \textit{Squared Error Cost Function}. Recall that
 
 \[
-	\hat{y} =  f_{w, b} \quad \textrm{and} \quad f_{w, b} = wx + b
+\hat{y} =  f_{w, b}(x) \quad \textrm{and} \quad f_{w, b}(x) = wx + b
 \]
 
 \noindent where $\hat{y}$ is the model's prediction for a given feature. The squared cost function can then be expressed as
 
-\[ J(w, b) = \frac{1}{2m}\sum^{m}_{i = 1}{ ({ y^{(i)} - \hat{y}^{(i)} })^2 }\]
+\[ J(w, b) = \frac{1}{2m}\sum^{m}_{i = 1}{ ({ \hat{y}^{(i)} - y^{(i)} })^2 }\]
 
 \noindent where $J(w, b)$ is the cost function, $m$ is the number of training examples, $y^{(i)}$ is a feature, and $\hat{y}^{(i)}$ is a prediction.
 
