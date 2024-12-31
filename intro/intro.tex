@@ -1,6 +1,7 @@
 \documentclass{article}
 
 \usepackage[utf8]{inputenc}
+\usepackage{amsmath}
 \usepackage{array}
 \usepackage{listings}
 \usepackage{xcolor}
@@ -196,6 +197,19 @@ plt.show()
 # cost of a 1200 sq. ft. house is predicted to be $304K
 \end{lstlisting}
 
-\noindent In the implementation, the features (\texttt{x\_train}) and targets (\texttt{y\_train}) are stored in respective \texttt{numpy} arrays. The number of training examples is obtained by finding the number of items in the features array, using the array's \texttt{.shape} method (it returns a tuple containing the size of the array along each dimension). The \texttt{compute\_model\_output} function creates an array containing the model's estimations of training set's targets, which is used to generate the graph. The weight and bias were initially arbitrarily set but later adjusted to fit the plots on the generated graph. With the accepted weight and bias, the model is used to provide an estimate of the price of a house that is 1200$ft^2$, which is \$304 000.
+\noindent In the implementation, the features (\texttt{x\_train}) and targets (\texttt{y\_train}) are stored in respective \texttt{numpy} arrays. The number of training examples is obtained by finding the number of items in the features array, using the array's \texttt{.shape} method (it returns a tuple containing the size of the array along each dimension). The \texttt{compute\_model\_output} function creates an array containing the model's estimations of training set's targets, which is used to generate the graph. The weight and bias were initially arbitrarily set but later adjusted to fit the plots on the generated graph. With the accepted weight and bias, the model is used to provide an estimate of the price of a house that is 1200$ft^2$, which is \$304,000.
+
+\subsubsection{Cost Function}
+In order to adjust the parameters of a linear regression model appropriately, it is necessary to have a reliable way to deduce how well the model is performing on the training data. This is acheived through the \textit{cost function}. This function compares the predictions of the model to the targets and outputs a number that is used to quantify the model's performance. The most commonly used linear regression cost function is called the \textit{Squared Error Cost Function}. Recall that
+
+\[
+	\hat{y} =  f_{w, b} \quad \textrm{and} \quad f_{w, b} = wx + b
+\]
+
+\noindent where $\hat{y}$ is the model's prediction for a given feature. The squared cost function can then be expressed as
+
+\[ J(w, b) = \frac{1}{2m}\sum^{m}_{i = 1}{ ({ y^{(i)} - \hat{y}^{(i)} })^2 }\]
+
+\noindent where $J(w, b)$ is the cost function, $m$ is the number of training examples, $y^{(i)}$ is a feature, and $\hat{y}^{(i)}$ is a prediction.
 
 \end{document}
