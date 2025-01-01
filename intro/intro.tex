@@ -33,6 +33,8 @@
 
 \maketitle
 
+%\tableofcontents
+
 \section{Introduction}
 There are many problems that have been solved using rule-based algorithms, such as finding the shortest path between two points, sorting lists of items, etc. There are problems that cannot be solved this way because they are simply too complex; this is a problem area where machine learning excels. In simple terms, machine learning is a field concerned with teaching computers how to learn to do certain tasks. Machine learning is heavily relevant today, being used in various fields such as healthcare, scientific research, social media, manufacturing, etc.
 
@@ -211,5 +213,70 @@ In order to adjust the parameters of a linear regression model appropriately, it
 \[ J(w, b) = \frac{1}{2m}\sum^{m}_{i = 1}{ ({ \hat{y}^{(i)} - y^{(i)} })^2 }\]
 
 \noindent where $J(w, b)$ is the cost function, $m$ is the number of training examples, $y^{(i)}$ is a feature, and $\hat{y}^{(i)}$ is a prediction.
+
+\noindent The goal is to make the output of the cost function as small as possible
+
+\[\min_{w, b}J(w, b)\]
+
+\noindent as the size of the output directly reflects the variance between the model's predictions and the target values. Thus, it should be kept to a minimum. 
+
+Given $y = x$, if $b$ is set to 0 and $J$ is plot against $w$ for different values of $w$, observing the resulting parabola might help build some intuition about the behavior of the cost function.
+
+\noindent For example, if $w = 1$, $f_{w}(x) = x$ therefore, $y = f_{w}(x)$. This implies,
+\begin{align*}
+&J(1) \quad=\quad \frac{1}{2m}\sum^m_{i=1}{ (wx^{(i)} - y^{(i)})^2 } \\
+&J(1) \quad=\quad \frac{1}{2\times3}[(1-1) + (2-2) + (3-3)] \quad=\quad 0 \\
+\end{align*}
+
+\noindent Repeating this process for more values of $w$ we get:
+
+\begin{center}
+\centering
+\begin{tabular}{|c|c|}
+\hline
+\textbf{$w$} & \textbf{$J(w)$} \\
+\hline
+0 & $\approx 2.3$ \\
+\hline
+0.5 & $\approx 0.58$ \\
+\hline
+1.5 & $\approx 0.58$ \\
+\hline
+2 & $\approx 2.3$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{tikzpicture}
+\begin{axis}[
+	title={Cost Function $J(w)$ vs $w$},
+	xlabel={$w$},	
+	ylabel={$J(w)$},
+	grid=major,
+	xmin=-0.5, xmax=2.5,
+	ymin=0, ymax=4,
+	xtick={-0.5,0,0.5,1,1.5,2,2.5},
+	ytick={0,1,2,3,4}
+]
+
+\addplot[
+	only marks,
+	mark=*,
+	mark size=2pt,
+] coordinates {
+	(0, 2.3)
+	(0.5, 0.58)
+	(1, 0)
+	(1.5, 0.58)
+	(2, 2.3)
+};
+
+\addplot[
+	domain=0:3,
+	samples=100,
+	thick
+] {((x - 1)^2 + (2*x - 2)^2 + (3*x - 3)^2) / 6};
+\end{axis}	
+\end{tikzpicture}
 
 \end{document}
