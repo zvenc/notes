@@ -256,7 +256,8 @@ Given $y = x$, if $b$ is set to 0 and $J$ is plot against $w$ for different valu
 	xmin=-0.5, xmax=2.5,
 	ymin=0, ymax=4,
 	xtick={-0.5,0,0.5,1,1.5,2,2.5},
-	ytick={0,1,2,3,4}
+	ytick={0,1,2,3,4},
+	grid style={dashed, gray!30}
 ]
 
 \addplot[
@@ -278,5 +279,7 @@ Given $y = x$, if $b$ is set to 0 and $J$ is plot against $w$ for different valu
 ] {((x - 1)^2 + (2*x - 2)^2 + (3*x - 3)^2) / 6};
 \end{axis}	
 \end{tikzpicture}
+
+As stated a priori, the ideal cost function output is the minimum possible value. In the graph, the minimum value of the parabola ($w = 1, J(w) = 0$), is the point where the model is most accurate. In this instance, a cost function output of 0 was obtained, meaning the model was completely accurate with those parameters. If the minimum value of the parabola was not 0, then the process would've been repeated for different values of $b$. Depending on the dataset, it is possible (and even likely with real-world data) that no values of $w$ and $b$ satisfy $J(w, b) = 0$. Checking $J(w, b)$ for different values of $b$ in such a scenario will not yield a value that will lead to 100\% model accuracy although, it will still give some insight into the data. As you can imagine, brute-forcing a solution this way is tedious. There are more efficient ways of minimizing the cost function which will be discussed later.
 
 \end{document}
