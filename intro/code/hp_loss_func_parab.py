@@ -19,7 +19,6 @@ J = np.zeros_like(W)
 
 # compute the cost function for each (w, b) pair
 J = cost_function(x_train, y_train, W, B)
-# print(f"J: {J}")
 
 # plot the paraboloid
 fig = plt.figure(figsize=(10, 7))

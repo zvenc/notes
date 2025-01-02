@@ -25,10 +25,6 @@ def compute_model_output(x, w, b):
         f_wb[i] = w * x[i] + b
     return f_wb
 
-# i = 0
-# x_i, y_i = x_train[i], y_train[i]
-# print(f"(x^i, y^i) = ({x_i}, {y_i})")
-
 x_i = 1.2
 cost_1200sqft = w * x_i + b
 print(f"cost of a 1200 sq. ft. house is predicted to be ${cost_1200sqft:.0f}K")
