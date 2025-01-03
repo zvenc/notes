@@ -3,6 +3,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{array}
+\usepackage{hyperref}
 \usepackage{listings}
 \usepackage{xcolor}
 \usepackage{graphicx}
@@ -10,6 +11,11 @@
 \usepackage{pgfplots}
 
 \pgfplotsset{width=10cm,compat=1.9}
+
+\hypersetup {
+	colorlinks=true,
+	urlcolor=blue
+}
 
 \lstset{
     language=Python,
@@ -50,14 +56,14 @@ Machine Learning algorithms can be categorized into two main types:
 
 \noindent While there are other types of machine learning, these two are the most relevant at this stage.
 
-\subsubsection{Supervised Learning ($x \rightarrow y$)}
+\subsection{Supervised Learning}
 This approach to machine learning involves giving the computer a number of examples to learn from in the form of input-output pairs. The output represents what is expected given a particular input. The computer then learns from these input-output pairs and tries to guess the correct output for an input that it has never seen before.
 
 For example let's say you had a plot of house prices against size for about 15 houses. The goal would be to get the computer to estimate the price of a house based on its size, even for houses not explicity represented in the dataset. This is called a \textit{'regression problem'}, and the relationships could either be linear, polynomial, etc.
 
 Another example is breast cancer detection. A model can learn to predict whether a tumor is cancerous based on its size. It can be provided with a plot of patient age against tumor size with the malignant and benign tumors marked on the plot. The model might the attempt to create a boundary to identify malignant tumors. In this example, the model only has to guess between two possible output classes, 'benign' or 'malignant'. This is what's known as a \textit{'classification problem'}. Unlike regression, classification requires the model to predict the correct value from a finite set of classes, not necessarily just two, like in the example. A model could also be designed to detect different classes of malignant tumors, in which case the classes could be 'benign', 'malignant-type-1', and 'malignant-type-2'.
 
-\subsubsection{Unsupervised Learning ($x$)}
+\subsection{Unsupervised Learning}
 With supervised learning, a model learns from data labeled with 'correct answers'. In contrast, unsupervised learning involves providing the model with unlabeled data and tasking it with finding any patterns or structures hidden within the data. Let's say we have another patient age vs tumor size plot except the points aren't labeled. A model might try to group the points into categories or \textit{'clusters'}. This is type of supervised learning algorithm called a \textit{'clustering algorithm'}. Google News employs this algorithm to group related news articles. Achieving this with supervised learning is unfeasible for obvious reasons. Other unsupervised learning algorithms include \textit{'anomaly detection'} and \textit{'dimensionality reduction'}.
 
 \subsection{Terminology}
@@ -72,7 +78,9 @@ With supervised learning, a model learns from data labeled with 'correct answers
 
 \end{enumerate}
 
-\subsection{Linear Regression Model}
+\newpage
+
+\section{Linear Regression Model}
 The training set, which contains the input features and output targets, is fed into the supervised learning algorithm. The algorithm then produces a function (historically called a hypothesis) that it then uses to estimate an output for any given input. That function, also called a model, takes  in a feature, $x$, and then produces and estimate, $\hat{y}$. Note the difference between $y$ and $\hat{y}$; $y$ is the target/true value in the training set, while $\hat{y}$ is an estimate of $y$. A linear regression model takes on the form:
 
 \[ f_{w,b}(x) = wx + b\]
@@ -81,50 +89,52 @@ The training set, which contains the input features and output targets, is fed i
 \noindent For the sake of convenience, $f_{w,b}(x)$ will be written as $f(x)$. If the features and targets were plot on a graph, the algorithm would generate a best-fit line for the plot which would be represented by that equation.
 \vspace{5mm}
 
-\begin{tikzpicture}
-    \begin{axis}[
-        xlabel={\( x \)},
-        ylabel={\( y \)},
-        xmin=0, xmax=10,
-        ymin=0, ymax=20,
-        xtick={0,2,4,6,8,10},
-        ytick={0,5,10,15,20},
-        legend pos=north west,
-        grid=major,
-        grid style={dashed, gray!30},
-    ]
-    
-    \addplot[
-        only marks,
-        mark=*,
-        mark size=2pt,
-    ] coordinates {
-        (1, 5)
-        (2, 4)
-        (3, 7)
-        (4, 10)
-        (5, 11)
-        (6, 15)
-        (7, 16)
-        (8, 18)
-        (9, 20)
-    };
-    \addlegendentry{Data Points}
-    
-    \addplot[
-        domain=0:10,
-        samples=2,
-        thick
-    ] {2.1*x + 1.2};
-    \addlegendentry{$f(x) = wx + b$}
-    
-    \end{axis}
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+\begin{axis}[
+xlabel={\( x \)},
+ylabel={\( y \)},
+xmin=0, xmax=10,
+ymin=0, ymax=20,
+xtick={0,2,4,6,8,10},
+ytick={0,5,10,15,20},
+legend pos=north west,
+grid=major,
+grid style={dashed, gray!30},
+]
+
+\addplot[
+only marks,
+mark=*,
+mark size=2pt,
+] coordinates {
+(1, 5)
+(2, 4)
+(3, 7)
+(4, 10)
+(5, 11)
+(6, 15)
+(7, 16)
+(8, 18)
+(9, 20)
+};
+\addlegendentry{Data Points}
+
+\addplot[
+domain=0:10,
+samples=2,
+thick
+] {2.1*x + 1.2};
+\addlegendentry{$f(x) = wx + b$}
+
+\end{axis}
 \end{tikzpicture}
+\end{center}
 
 \noindent This is one-variable or \textit{univariate} linear regression, which means there's a single feature for each data point. Using the house price example, it is possible to take other factors into consideration rather than just the size of the house such as number of bedrooms, location, etc.
 
-\subsubsection{Linear Regression Implementation in Python}
-A linear regression model can be implemented in python using \texttt{numpy} and \texttt{matplotlib}. Here is a linear regression model for predicting house prices based on size using this training set:
+\subsection{Linear Regression Implementation in Python}
+A linear regression model can be implemented in python using \texttt{numpy} and \texttt{matplotlib}. The code can be found \href{https://github.com/zvenc/ml-notes/blob/main/intro/code/house_price.py}{\underline{here}}. This is a linear regression model for predicting house prices based on size using this training set:
 
 \begin{center}
 \centering
@@ -148,8 +158,6 @@ A linear regression model can be implemented in python using \texttt{numpy} and 
 \center {House size in 1000$ft^2$($x$) and house price in \$1000($y$)}
 \end{center}
 
-\newpage
-
 \begin{figure}
 \centering
 \includegraphics[width=1\textwidth]{images/linear_regression.png}
@@ -157,14 +165,14 @@ A linear regression model can be implemented in python using \texttt{numpy} and 
 
 \noindent In the implementation, the features (\texttt{x\_train}) and targets (\texttt{y\_train}) are stored in respective \texttt{numpy} arrays. The number of training examples is obtained by finding the number of items in the features array, using the array's \texttt{.shape} method (it returns a tuple containing the size of the array along each dimension). The \texttt{compute\_model\_output} function creates an array containing the model's estimations of training set's targets, which is used to generate the graph. The weight and bias were initially arbitrarily set but later adjusted to fit the plots on the generated graph. With the accepted weight and bias, the model is used to provide an estimate of the price of a house that is 1200$ft^2$, which is \$304,000.
 
-\subsubsection{Cost Function}
-In order to adjust the parameters of a linear regression model appropriately, it is necessary to have a reliable way to deduce how well the model is performing on the training data. This is acheived through the \textit{cost function}. This function compares the predictions of the model to the targets and outputs a number that is used to quantify the model's performance. The most commonly used linear regression cost function is called the \textit{Squared Error Cost Function}. Recall that
+\section{Cost Function}
+In order to adjust the parameters of a linear regression model appropriately, it is necessary to have a reliable way to determine the model's performance on the training data. This is acheived through the \textit{cost function}. This function compares the model's predictions to the targets and outputs a number that represents the model's performance. The most commonly used linear regression cost function is called the \textit{Mean Squared Error Cost Function}. Recall that
 
 \[
 \hat{y} =  f_{w, b}(x) \quad \textrm{and} \quad f_{w, b}(x) = wx + b
 \]
 
-\noindent where $\hat{y}$ is the model's prediction for a given feature. The squared cost function can then be expressed as
+\noindent where $\hat{y}$ is the model's prediction for a given feature. The cost function can then be expressed as
 
 \[ J(w, b) = \frac{1}{2m}\sum^{m}_{i = 1}{ ({ \hat{y}^{(i)} - y^{(i)} })^2 }\]
 
@@ -203,12 +211,13 @@ Given $y = x$, if $b$ is set to 0 and $J$ is plot against $w$ for different valu
 \end{tabular}
 \end{center}
 
-\begin{tikzpicture}
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
 \begin{axis}[
 	title={Cost Function $J(w)$ vs $w$},
 	xlabel={$w$},	
 	ylabel={$J(w)$},
-	grid=major,
+	grid=minor,
 	xmin=-0.5, xmax=2.5,
 	ymin=0, ymax=4,
 	xtick={-0.5,0,0.5,1,1.5,2,2.5},
@@ -235,23 +244,30 @@ Given $y = x$, if $b$ is set to 0 and $J$ is plot against $w$ for different valu
 ] {((x - 1)^2 + (2*x - 2)^2 + (3*x - 3)^2) / 6};
 \end{axis}	
 \end{tikzpicture}
+\end{center}
 
 The approach taken in the example above was purely demonstrational as the data was prepared specifically for that purpose and would not be helpful when dealing with real-world data. If a different value had been selected for $b$, the minimum value of the parabola would not have been 0. We would have selected the corresponding value of $w$ while a better value exists although, we had no way of knowing. It is possible that no values of $w$ and $b$ yield a cost function output of zero. This further demonstrates why plotting only 2 variables is not sufficient. The goal remains the same: to minimize the cost function. Values of $w$ and $b$ will be selected to produce the lowest possible cost. But, how are the ideal values determined when a 2-dimensional plot provides a limited understanding of the cost function's behavior? The solution is simply to plot $w$ against $b$ and $J(w, b)$ simultaneously.
 
-\begin{figure}[h!]
-\centering
-\includegraphics[width=1\textwidth]{images/paraboloid.png}
-\end{figure}
+\includegraphics[width=320pt]{images/paraboloid.png}
 
 \noindent The resulting shape is a paraboloid. The minimum value lies at the lowest point of the paraboloid, just as it does with a parabola but this way we have a somewhat complete view of the cost function's behavior. It is still not very convenient to attempt to ascertain what the lowest point is and what the values of $w$ and $b$ are at that point. To address this, the paraboloid can be represented with a contour plot, where the minimum value is the center of the smallest ellipse.
 
-\newpage
-
 \begin{figure}[h!]
 \centering
-\includegraphics[width=1\textwidth]{images/contour.png}
+\includegraphics[width=300pt]{images/contour.png}
 \end{figure}
 
 \noindent From the contour, we are able to make a reasonably accurate approximation of the ideal parameters for the model. The initial parameter values $(w=170, b=100)$ are not poor, but they are much less accurate than our contour-based approximations $(w=155.57, b=157.54)$.
+
+\section{Gradient Descent}
+Gradient descent provides a systematic way of minimizing functions, not just a cost function for linear regression, even models that have more than two parameters. The gradient descent algorithm takes arbitrarily selected values for $w$ and $b$, and then changes those values iteratively to reduce $J(w,b)$ until a local minimum is achieved. For a linear regression model, there are no local minima and one global minimum, this means that gradient descent will always reach the minimum. Not all cost functions behave this way. Neural net cost functions for example, are typically non-convex, having many local minima, saddle points and flat regions. Gradient descent is not guaranteed to achieve the global minimum of such functions. The gradient descent function can be represented as:
+\[\theta_{new} = \theta_{old} - \alpha \nabla J(\theta_{old}) \]
+\noindent Where:
+
+\begin{itemize}
+\item $\theta$: The parameters of the model (e.g. $w$ and $b$)
+\item $\alpha$: The learning rate, a hyperparameter that controls the step size (how much the parameters change with each iteration).
+\item $\nabla J(\theta)$: The gradient of the cost function $J(\theta)$
+\end{itemize}
 
 \end{document}
