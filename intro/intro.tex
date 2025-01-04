@@ -182,7 +182,7 @@ In order to adjust the parameters of a linear regression model appropriately, it
 
 \[\min_{w, b}J(w, b)\]
 
-\noindent as the size of the output directly reflects the variance between the model's predictions and the target values. Thus, it should be kept to a minimum. 
+\noindent as the size of the output directly reflects the variance between the model's predictions and the target values. Thus, it should be kept to a minimum. Usually, minimizing the cost function is handled algorithmically. The process by which a model autonomously adjusts its internal parameters to minimize the cost function is called \textit{'training'}.
 
 Given $y = x$, if $b$ is set to 0 and $J$ is plot against $w$ for different values of $w$, observing the resulting parabola might help build some intuition about the behavior of the cost function.
 
@@ -266,8 +266,9 @@ Gradient descent provides a systematic way of minimizing functions, not just a c
 
 \begin{itemize}
 \item $\theta$: The parameters of the model (e.g. $w$ and $b$)
-\item $\alpha$: The learning rate, a hyperparameter that controls the step size (how much the parameters change with each iteration).
+\item $\alpha$: The learning rate, a hyperparameter* that controls the step size (how much the parameters change with each iteration).
 \item $\nabla J(\theta)$: The gradient of the cost function $J(\theta)$
 \end{itemize}
+\noindent *A hyperparameter is a configuration variable that is set before training begins and doesn't change during the process. It is external to the model and only functions to control the model's behavior.
 
 \end{document}
