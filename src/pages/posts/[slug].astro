@@ -1,0 +1,47 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+
+interface Props {
+	post: CollectionEntry<'posts'>;
+}
+
+export async function getStaticPaths() {
+	const posts = await getCollection('posts');
+	return posts.map((post: CollectionEntry<'post'>) => ({
+		params: { slug: post.slug },
+		props: { post },
+		}));
+}
+
+const { post } = Astro.props as Props;
+const { Content } = await post.render();
+---
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{post.data.title}</title>
+</head>
+
+<body class="max-w-2xl mx-auto px-6 py-12 font-serif">
+	<header class="mb-16">
+		<a href="/" class="text-sm text-gray-500 hover:text-gray-700">← Back to notes</a>
+		<h1 class="text-3xl font-normal mt-8 mb-2">{post.data.title}</h1>
+		<div class="tex-sm text-gray-500">
+			{new Date(post.data.date).toLocaleString('en-US', {
+				year: 'numeric',
+				month: 'long',
+				day: 'numeric'
+			})}
+		</div>
+	</header>
+
+	<main class="prose prose-lg">
+		<Content />
+	</main>
+</body>
+
+</html>

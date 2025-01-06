@@ -1,0 +1,53 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+// get all the .md files
+const posts = await getCollection('posts');
+
+// sort by date
+const sortedPosts = posts.sort((a: CollectionEntry<'posts'>, b: CollectionEntry<'posts'>) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Notes</title>
+</head>
+
+<body class="max-w-2xl mx-auto px-6 py-12 font-serif">
+	<header class="mb-16 pt-8">
+		<h1 class="text-3xl font-normal mb-1">Notes</h1>
+	</header>
+
+	<main class="space-y-16">
+		{sortedPosts.map((post: CollectionEntry<'posts'>) => (
+			<article class="group">
+				<div class="text-sm text-gray-500 mb-1">
+					{new Date(post.data.date).toLocaleString('en-US', {
+						year: 'numeric',
+						month: 'long',
+						day: 'numeric'
+					})}
+				</div>
+
+				<a href={`/posts/${post.slug}`} class="block">
+					<h2 class="text-xl mb-3 group-hover:underline">
+						{post.data.title}
+					</h2>
+				</a>
+
+				{post.data.excerpt && (
+				<p class="text-gray-600 leading-relaxed mb-4">
+					{post.data.excerpt}
+				</p>
+				)}
+
+			</article>
+		))}
+	</main>
+</body>
+
+</html>
