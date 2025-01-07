@@ -13,4 +13,5 @@ export default defineConfig({
 		rehypePlugins: [rehypeKatex],
 	},
 	site: 'https://zvenc.github.io',
+	base: '/',
 });
