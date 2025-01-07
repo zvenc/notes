@@ -1,6 +1,37 @@
 ---
-title: Introduction to Linear Regression
+title: Linear Regression
 date: 2024-12-30
 excerpt: "Understanding machine learning in its simplest form..."
 ---
+In my last post I described supervised learning as a machine learning method where the training set—which consists of input features and corresponding output targets—is fed into a algorithm. What happens after this? Does the algorithm just magically synthesize the information? That's what this post is about. Today, our goal is to understand machine learning in its simplest form.
 
+# The Linear Regression Model
+When the algorithm is provided with the training data, it produces a function, historically referred to as a _hypothesis_, which it uses to estimate an output for any given input. This function, also called a _model_, takes in a feature, $x$, and produces an estimate, $\hat{y}$. It is important to note the distinction between $x$ and $\hat{y}$:
+- $y$ represents a _correct_ target value from the training set.
+- $\hat{y}$ represents the estimated value predicted by the model.
+
+A linear regression model is mathematically expressed as:
+$$
+f_{w,b}(x) = wx + b
+$$
+For simplicity, $f_{w,b}(x)$ is often written as $f(x)$. In the equation above:
+- $w$ is the weight (or slope) of the model. It controls how much $y$ changes per unit change in $x$.
+- $b$ is the bias (or intercept) of the model. It represents the value of $y$ when $x = 0$.
+
+When the features and targets are plotted on a graph, the linear regression algorithm generates a _best-fit line_ with the aim of minimizing the difference between the predicted values and the actual values. The equation above represents that line.
+
+This is an example of how linear regression can be applied: predicting house prices based on the size of the houses.
+![Linear Regression Example](../images/linear_regression.png)
+This is what the training set for this model would look like (x in thousands of sq. ft, y in thousands of $):
+<div style="width: 30%; margin: auto;">
+| $x$ |   $y$   |
+|-----|---------|
+| 1.0 |  300.0  |
+| 2.0 |  500.0  |
+| 3.0 |  580.0  |
+| 4.0 |  830.0  |
+| 5.0 |  900.0  |
+| 6.0 | 1100.0  |
+</div>
+
+The form of linear regression is one-variable or _univariate_ linear regression, which means there's a single feature for each data point. In the example it's possible to take other factors into consideration like number of bedrooms, location, etc.
