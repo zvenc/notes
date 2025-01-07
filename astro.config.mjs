@@ -12,4 +12,5 @@ export default defineConfig({
 		remarkPlugins: [remarkMath],
 		rehypePlugins: [rehypeKatex],
 	},
+	site: 'https://zvenc.github.io',
 });
