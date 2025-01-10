@@ -3,23 +3,28 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 ---
 
 <BaseLayout>
-	<h1 class="text-2xl font-normal mb-4">zvenc</h1>
-	<p class="text-gray-500 text-xl">My name is [redacted]. I'm just a guy who likes to <em>learn</em> and <em>tinker</em>.</p>
-	<blockquote class="quote text-2xl">
+	<p class="text-xl">My name is [redacted]. I'm just a guy who likes to <em>learn</em> and <em>tinker</em>.</p>
+	<blockquote class="
+				   quote 
+				   text-2xl
+				   border-l-4
+				   border-l-gray-500
+				   text-gray-500
+				   bg-zinc-800
+				   p-2
+				">
 		<p>Study hard what interests you the most in the most undisciplined, irreverent, and original manner possible.</p>
-		<footer>— <cite>Richard Feynman</cite></footer>
+		<footer class="text-gray-200">— <cite>Richard Feynman</cite></footer>
 	</blockquote>
 	<p><em>John McAfee was once sighted at a rural bar in Vietnam. Some of the locals who recognized him enquired about his presence there. He responded with a number of absurd statements, even claiming to be an NPC in a videogame. One account has him saying, "Antivirus quantum flux, bacon matrix, password is medium-rare but only if the moon is up-sideways."</em></p>
-	<p><em><a href="https://youtu.be/Uj1ykZWtPYI?si=UdAPZ87M6-3ufFuy" target="_blank" class="underline hover:text-gray-500">What did he mean by this?</a></em><p>
+	<p class="pt-2"><em><a href="https://youtu.be/Uj1ykZWtPYI?si=UdAPZ87M6-3ufFuy" target="_blank" class="underline hover:text-gray-500">What did he mean by this?</a></em><p>
 </BaseLayout>
 
 <style>
 .quote {
-  border-left: 4px solid #2c3e50;
   margin: 1.5em 0;
   padding-left: 1em;
   font-style: italic;
-  color: #34495e;
   font-size: 1.2em;
   line-height: 1.6;
 }
@@ -28,7 +33,6 @@ import BaseLayout from '../layouts/BaseLayout.astro'
   margin-top: 0.5em;
   font-style: normal;
   font-size: 0.9em;
-  color: #7f8c8d;
 }
 
 .quote footer cite {

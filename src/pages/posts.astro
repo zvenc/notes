@@ -1,43 +1,81 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro'
+import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 
-// get all the markdown files
+// Get all the markdown files
 const posts = await getCollection('posts');
 
-// sort by date
+// Sort by date
 const sortedPosts = posts.sort((a: CollectionEntry<'posts'>, b: CollectionEntry<'posts'>) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
 <BaseLayout>
-	<header class="mb-16 pt-8">
-		<h1 class="text-3xl font-normal mb-1">Notes</h1>
-	</header>
+  <header class="mb-12 pt-8">
+    <h1 class="text-3xl font-bold mb-1">Notes</h1>
+    <!-- Search Box -->
+    <input
+      type="text"
+      id="search-box"
+      placeholder="Search posts..."
+      class="text-neutral-900 rounded-none mt-6 w-full p-2 border border-gray-300 rounded-md focus:outline-none"
+    />
+  </header>
 
-	<main class="space-y-16">
-		{sortedPosts.map((post: CollectionEntry<'posts'>) => (
-			<article class="group">
-				<div class="text-sm text-gray-500 mb-1">
-					{new Date(post.data.date).toLocaleString('en-US', {
-						year: 'numeric',
-						month: 'long',
-						day: 'numeric'
-					})}
-				</div>
+  <main class="space-y-10">
+    <!-- List of Posts -->
+    {sortedPosts.map((post: CollectionEntry<'posts'>) => (
+        <a href={`/posts/${post.slug}`} class="block">
+      <article
+        class="group post border-l-4 border-l-gray-500 bg-zinc-800 pt-4 pb-2"
+        data-title={post.data.title.toLowerCase()}
+        data-excerpt={post.data.excerpt?.toLowerCase() || ''}
+      >
+        <div class="text-sm text-gray-500 mb-1">
+          {new Date(post.data.date).toLocaleString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          })}
+        </div>
 
-				<a href={`/posts/${post.slug}`} class="block">
-					<h2 class="text-xl mb-3 group-hover:underline">
-						{post.data.title}
-					</h2>
-				</a>
+          <h2 class="text-xl mb-3 group-hover:underline">{post.data.title}</h2>
 
-				{post.data.excerpt && (
-				<p class="text-gray-600 leading-relaxed mb-4">
-					{post.data.excerpt}
-				</p>
-				)}
-
-			</article>
-		))}
-	</main>
+        {post.data.excerpt && (
+          <p class="text-gray-500 leading-relaxed mb-4 italic">
+            {post.data.excerpt}
+          </p>
+        )}
+      </article>
+        </a>
+    ))}
+  </main>
 </BaseLayout>
+
+<style>
+  .post {
+    margin: 1.5em 0;
+    padding-left: 1em;
+    font-size: 1.2em;
+    line-height: 1.6;
+  }
+</style>
+
+<script>
+  const searchBox = document.getElementById('search-box');
+  const posts = document.querySelectorAll('.post');
+
+  searchBox.addEventListener('input', (event) => {
+    const searchTerm = event.target.value.toLowerCase();
+
+    posts.forEach((post) => {
+      const title = post.getAttribute('data-title');
+      const excerpt = post.getAttribute('data-excerpt');
+
+      if (title.includes(searchTerm) || excerpt.includes(searchTerm)) {
+        post.style.display = 'block';
+      } else {
+        post.style.display = 'none';
+      }
+    });
+  });
+</script>

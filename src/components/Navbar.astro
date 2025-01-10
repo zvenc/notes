@@ -2,12 +2,53 @@
 ---
 
 <nav class="text-gray-500 p-4">
-	<div class="container mx-auto flex justify-between items-center">
-		<a href="/" class="text-xl font-bold">zvenc</a>
-		<ul class="flex space-x-4">
-			<li><a href="/projects" class="hover:underline">Projects</a></li>
-			<li><a href="/posts" class="hover:underline">Blog</a></li>
-			<li><a href="/resources" class="hover:underline">Resources</a></li>
-		</ul>
-	</div>
+  <div class="container mx-auto flex justify-between items-center">
+    <a href="/" class="text-xl font-bold">zvenc's corner</a>
+
+    <!-- Hamburger Menu Button (Visible on small screens) -->
+    <button id="menu-toggle" class="block md:hidden focus:outline-none">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+      </svg>
+    </button>
+
+    <!-- Nav Links (Hidden on small screens, visible on medium and larger screens) -->
+    <ul id="nav-links" class="hidden md:flex md:space-x-4 absolute md:relative top-16 md:top-0 left-0 w-full md:w-auto bg-neutral-900 md:bg-transparent flex-col md:flex-row p-4 md:p-0">
+      <li><a href="/projects" class="block py-2 md:py-0">Projects</a></li>
+      <li><a href="/posts" class="block py-2 md:py-0">Blog</a></li>
+      <li><a href="/resources" class="block py-2 md:py-0">Resources</a></li>
+    </ul>
+  </div>
 </nav>
+
+<style>
+  a:hover,
+  li:hover {
+	  text-decoration: underline;
+    /*transform-origin: center;*/
+    /*transform: skew(4deg, 4deg);*/
+    transition: 100ms;
+    /*background-color: #ccc;*/
+	/*color: #222;*/
+  }
+</style>
+
+<script>
+  // Toggle the menu on small screens
+  const menuToggle = document.getElementById('menu-toggle');
+  const navLinks = document.getElementById('nav-links');
+
+  if (navLinks && menuToggle) {
+	  menuToggle.addEventListener('click', () => {
+		navLinks.classList.toggle('hidden');
+	  });
+
+	  // Close the menu when a link is clicked
+	  const navItems = document.querySelectorAll('#nav-links a');
+	  navItems.forEach((item) => {
+		item.addEventListener('click', () => {
+		  navLinks.classList.add('hidden');
+		});
+	  });
+  }
+</script>
