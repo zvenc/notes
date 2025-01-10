@@ -2,17 +2,14 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 
-// Get all the markdown files
 const posts = await getCollection('posts');
 
-// Sort by date
 const sortedPosts = posts.sort((a: CollectionEntry<'posts'>, b: CollectionEntry<'posts'>) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
 <BaseLayout>
   <header class="mb-12 pt-8">
     <h1 class="text-3xl font-bold mb-1">Notes</h1>
-    <!-- Search Box -->
     <input
       type="text"
       id="search-box"
@@ -22,7 +19,6 @@ const sortedPosts = posts.sort((a: CollectionEntry<'posts'>, b: CollectionEntry<
   </header>
 
   <main class="space-y-10">
-    <!-- List of Posts -->
     {sortedPosts.map((post: CollectionEntry<'posts'>) => (
         <a href={`/posts/${post.slug}`} class="block">
       <article
