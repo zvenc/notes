@@ -70,7 +70,7 @@ x_i = 1.2 # 1.2k sq. ft. house
 house_cost = w  + x_i + b
 print(f"cost of 1.2k sq. ft. house: {house_cost}")
 ```
-Here we can check what the model will output with the chosen weight and bias, and an input of 1.2 which isn't part of the training set. We can end the program here if our goal is only to compute values, but we also want to visualize the model's predictions.
+We can check what the model will output with the chosen weight and bias, and an input of 1.2 which isn't part of the training set. We can end the program here if our goal is only to compute values, but we also want to visualize the model's predictions.
 
 ```python
 def compute_model_output(x, w, b):
@@ -90,7 +90,7 @@ def compute_model_output(x, w, b):
         f_wb[i] = w * x[i] + b
     return f_wb
 ```
-This is where most of the magic happens. In this part of the code, we define a function to compute the model's predictions, `compute_model_output`. The function has three parameters `w`, `x` and `b`, which represent the weight, input array and bias respectively. For the sake of this example, a scalar is just a number,which the weight and bias are. NumPy's `array()` function is used to create n-dimensional arrays. In this case, we only need one-dimensional arrays. NumPy arrays have an attribute called `shape` which provides a tuple that contains the dimensions of the array that calls it. The shape of the target and feature arrays is `(6,)`. We define `m` as the first element in the shape tuple, which is 6. This represents the number of training examples. We then initialize `f_wb` as a NumPy array the same shape as the input and output arrays but filled with zeros (that's what the `zeros()` function does). After that, we run a loop `m` number of times, to assign each of the model's predictions for the training inputs to their respective positions in the `f_wb` array. We perform the computation using the linear regression function. The `compute_model_output` returns the the `f_wb` array.
+We define a function to compute the model's predictions for the all the inputs and return an array containing the outputs, `compute_model_output`. The function has three parameters `w`, `x` and `b`, which represent the weight, input array and bias respectively. For the sake of this example, a scalar is just a number,which the weight and bias are. NumPy's `array()` function is used to create n-dimensional arrays. In this case, we only need one-dimensional arrays. NumPy arrays have an attribute called `shape` which provides a tuple that contains the dimensions of the array that calls it. The shape of the target and feature arrays is `(6,)`. We define `m` as the first element in the shape tuple, which is 6. This represents the number of training examples. We then initialize `f_wb` as a NumPy array the same shape as the input and output arrays but filled with zeros (that's what the `zeros()` function does). After that, we run a loop `m` number of times, to assign each of the model's predictions for the training inputs to their respective positions in the `f_wb` array. We perform the computation using the linear regression function. The `compute_model_output` returns the the `f_wb` array.
 
 ```python
 # use matplotlib to visualize the model
