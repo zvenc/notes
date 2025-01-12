@@ -3,10 +3,105 @@ title: Linear Regression Implementation
 date: 2025-01-02
 excerpt: "Implementing a simple linear regression model in python..."
 ---
-A linear regression model can be implemented in Python using `numpy` and `matplotlib`. `numpy` is an open-source Python library for working with large multi-dimensional arrays. It provides helpful mathematical functions to operate on these arrays efficiently. `numpy` is used for data analysis, machine learning and many other tasks that require numerical computing. `matplotlib` is an open-source visualization library, also in Python, that provides a framework to create a variety of plots including scatter plots, pie charts, histograms, etc.
+A linear regression model can be implemented in Python using NumPy and Matplotlib. NumPy is an open-source Python library for working with large multi-dimensional arrays. It provides helpful mathematical functions to operate on these arrays efficiently. It's used for data analysis, machine learning and many other tasks that require numerical computing. Matplotlib is an open-source visualization library, also in Python, that provides a framework to create a variety of plots including scatter plots, pie charts, histograms, etc.
 
-# Python Implementation of Linear Regression
+## Linear Regression with Python
+Using the example in the linear regression post (house size vs house price), here's a python program to predict the price of a house based on its size, using linear regression.
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+x_train = np.array([1, 2, 3, 4, 5, 6]) # feature array
+
+y_train = np.array([300, 500, 580, 830, 900, 1100]) # target array
+
+w = 170 # weight
+b = 100 # bias
+
+x_i = 1.2 # 1.2k sq. ft. house
+house_cost = w * x_i + b
+print(f"cost of 1.2k sq. ft. house: {house_cost}")
+
+def compute_model_output(x, w, b):
+    """
+    computes the prediction of a linear regression model
+
+    args:
+        x (ndarray (m,))    : data, size m
+        w, b (scalar)       : model parameters
+
+    returns:
+        f_wb (ndarray (m,)) : model prediction
+    """
+    m = x.shape[0]
+    f_wb = np.zeros(m)
+    for i in range(m):
+        f_wb[i] = w * x[i] +b
+    return f_wb
+
+# use matplotlib to visualize the model
+f_wb = compute_model_output(x_train, w, b)
+plt.scatter(x_train, y_train, marker='.', c='black')
+plt.plot(x_train, f_wb, c='black', label='model prediction')
+plt.xlabel("size of house in 1000s sq. ft.")
+plt.ylabel("price of house in $1000s")
+plt.show
+```
+
+## Code Breakdown
 ```python
 import numpy as np
 import matplotlib.plot as plt
 ```
+Here we import the libraries we need to write the program. I think this part is self-explanatory.
+
+```python
+x_train = np.array([1, 2, 3, 4, 5, 6]) # feature array
+y_train = np.array([300, 500, 580, 830, 900, 1100]) # feature array
+
+w = 170 # weight
+b = 100 # bias
+```
+In this part of the code, we use NumPy's `array()` function to define the training set in two parts, the input (features) and the output (targets). Then we set the weights and bias, you can run this code yourself and play around with the weight and bias values to see how they well or poorly the resulting line fits with the training data.
+
+```python
+x_i = 1.2 # 1.2k sq. ft. house
+house_cost = w  + x_i + b
+print(f"cost of 1.2k sq. ft. house: {house_cost}")
+```
+Here we can check what the model will output with the chosen weight and bias, and an input of 1.2 which isn't part of the training set. We can end the program here if our goal is only to compute values, but we also want to visualize the model's predictions.
+
+```python
+def compute_model_output(x, w, b):
+    """
+    computes the prediction of a linear regression model
+
+    args:
+        x (ndarray (m,))    : data, size m
+        w, b (scalar)       : model parameters
+
+    returns:
+        f_wb (ndarray (m,)) : model prediction
+    """
+    m = x.shape[0]
+    f_wb = np.zeros(m)
+    for i in range(m):
+        f_wb[i] = w * x[i] + b
+    return f_wb
+```
+This is where most of the magic happens. In this part of the code, we define a function to compute the model's predictions, `compute_model_output`. The function has three parameters `w`, `x` and `b`, which represent the weight, input array and bias respectively. For the sake of this example, a scalar is just a number,which the weight and bias are. NumPy's `array()` function is used to create n-dimensional arrays. In this case, we only need one-dimensional arrays. NumPy arrays have an attribute called `shape` which provides a tuple that contains the dimensions of the array that calls it. The shape of the target and feature arrays is `(6,)`. We define `m` as the first element in the shape tuple, which is 6. This represents the number of training examples. We then initialize `f_wb` as a NumPy array the same shape as the input and output arrays but filled with zeros (that's what the `zeros()` function does). After that, we run a loop `m` number of times, to assign each of the model's predictions for the training inputs to their respective positions in the `f_wb` array. We perform the computation using the linear regression function. The `compute_model_output` returns the the `f_wb` array.
+
+```python
+# use matplotlib to visualize the model
+f_wb = compute_model_output(x_train, w, b)
+plt.scatter(x_train, y_train, marker='.', c='black')
+plt.plot(x_train, f_wb, c='black', label='model prediction')
+plt.xlabel("size of house in 1000s sq. ft.")
+plt.ylabel("price of house in $1000s")
+plt.show
+```
+This portion of code handles the model visualization. We run the `compute_model_output` function on our training set and assign it to a variable `f_wb`. We then use `matplotlib.pyplot` and its functions to create a plot for the model predictions. We use `plt.scatter` to mark individual points on the plane, `plt.plot` to draw the axes and the line (`x_train` vs `f_wb`), and the plot title, `plt.xlabel` and `plt.ylabel` to attach labels to the x and y axes, and lastly, `plt.show` to display the plot.
+
+This is what the output looks like:
+![Linear Regression Model](../images/linear_regression.png)

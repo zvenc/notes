@@ -3,10 +3,10 @@ title: Linear Regression
 date: 2024-12-30
 excerpt: "Understanding machine learning in its simplest form..."
 ---
-In my last post I described supervised learning as a machine learning method where the training set—which consists of input features and corresponding output targets—is fed into an algorithm. What happens after this? Does the algorithm just magically synthesize the information? That's what this post is about. Today, our goal is to understand machine learning in its simplest form.
-
-# The Linear Regression Model
 ---
+In a previous post, I described supervised learning as a machine learning method where the training set—which consists of input features and corresponding output targets—is fed into an algorithm. What happens after this? Does the algorithm just magically synthesize the information? That's what this post is about. Today, our goal is to understand machine learning in its simplest form.
+
+## The Linear Regression Model
 When the algorithm is provided with the training data, it produces a function, historically referred to as a _hypothesis_, which it uses to estimate an output for any given input. This function, also called a _model_, takes in a feature, $x$, and produces an estimate, $\hat{y}$. It is important to note the distinction between $x$ and $\hat{y}$:
 - $y$ represents a _correct_ target value from the training set.
 - $\hat{y}$ represents the estimated value predicted by the model.
@@ -23,8 +23,8 @@ When the features and targets are plotted on a graph, the linear regression algo
 
 This is an example of how linear regression can be applied: predicting house prices based on the size of the houses.
 ![Linear Regression Example](../images/linear_regression.png)
-This is what the training set for this model would look like ($x$ in thousands of sq. ft, $y$ in thousands of $):
-<div style="width: 30%; margin: auto;">
+This is what the training set for this model would look like ($x$ in thousands of sq ft, $y$ in thousands of $):
+<div style="width: 20%; margin: auto;">
 | $x$ |   $y$   |
 |-----|---------|
 | 1.0 |  300.0  |
@@ -35,4 +35,4 @@ This is what the training set for this model would look like ($x$ in thousands o
 | 6.0 | 1100.0  |
 </div>
 
-The form of linear regression is _one-variable_ or _univariate_ linear regression, which means there's a single feature for each data point. In the example it's possible to take other factors into consideration like number of bedrooms, location, etc. In the next post I will demonstrate how we can achieve the model above using Python.
+The form of linear regression is _one-variable_ or _univariate_ linear regression, which means there's a single feature for each data point. In the example it's possible to take other factors into consideration like number of bedrooms, location, etc.

@@ -31,7 +31,7 @@ const { Content } = await post.render();
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
 </head>
 
-<body class="max-w-2xl mx-auto px-6 py-12 font-sans">
+<body class="max-w-2xl mx-auto px-6 py-12">
 	<header class="mb-12">
 		<a href="/posts" class="text-sm text-gray-500 hover:text-gray-700 hover:underline">← Back to notes</a>
 		<h1 class="text-3xl font-bold mt-8 mb-2">{post.data.title}</h1>
@@ -43,22 +43,52 @@ const { Content } = await post.render();
 			})}
 		</div>
 	</header>
-
-	<main class="
-			 prose 
-			 text-gray-100
-			 prose-headings:text-gray-100
-			 prose-p:text-gray-100
-			 prose-a:text-gray-100
-			 prose-a:hover:underline
-			 prose-strong:text-gray-100
-			 prose-ul:text-gray-100
-			 prose-li:text-gray-100
-			 prose-code:text-red-400
-			 prose-inline-code:bg-neutral-100
-		 ">
-		<Content />
-	</main>
+<main class="
+    prose 
+    text-gray-100
+    prose-headings:text-gray-100
+    prose-p:text-gray-100
+    prose-a:text-gray-100
+    prose-a:hover:underline
+    prose-strong:text-gray-100
+    prose-ul:text-gray-100
+    prose-li:text-gray-100
+    prose-code:text-gray-100
+	!prose-code:bg-transparent
+	!prose-code:p-0
+	prose-th:text-gray-100
+	prose-td:text-gray-100
+	prose-td:p-2
+	prose-th:p-2
+	prose-table:border-collapse
+">
+    <Content />
+</main>
 </body>
-
 </html>
+
+<style is:global>
+	code:not(pre code) {
+		padding: 0.2em 0.4em;
+		margin: 0;
+		font-size: 85%;
+		background-color: rgba(175, 184, 193, 0.2);
+		border-radius: 6px;
+		font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+	}
+
+	.prose code:not(pre code)::before,
+	.prose code:not(pre code)::after {
+		content: none !important;
+	}
+	.prose table {
+		border: 1px solid #30363d;
+		margin: 1em 0;
+  }
+
+	  .prose th,
+	  .prose td {
+		border: 1px solid #30363d;
+		padding: 2px 8px !important;
+  }
+</style>

@@ -4,12 +4,12 @@ import tailwind from '@astrojs/tailwind';
 import mdx from '@astrojs/mdx';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
+import remarkGfm from 'remark-gfm';
 
-// https://astro.build/config
 export default defineConfig({
 	integrations: [tailwind(), mdx()],
 	markdown: {
-		remarkPlugins: [remarkMath],
+		remarkPlugins: [remarkMath, remarkGfm],
 		rehypePlugins: [rehypeKatex],
 	},
 	site: 'https://zvenc.github.io',
