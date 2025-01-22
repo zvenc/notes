@@ -3,3 +3,20 @@ title: The Cost Function
 date: 2025-01-04
 excerpt: "How do I know the model is doing what it's supposed to?"
 ---
+The cost function is a metric that can be used to evaluate the accuracy of a model's predictions. It measures the deviation between the correct targets and the model's predictions. The most commonly used cost function for linear regression models is the _Mean Squared Error Function_. Just to recap:
+$$
+\hat{y} = f_{w,b}(x) = wx + b
+$$
+where $\hat{y}$ is the model's prediction for a given feature. The cost function can then be expressed as:
+$$
+J(w,b) = \frac{1}{2m}\sum^m_{i=1}(\hat{y}^{(i)} - y^{(i)})^2
+$$
+where $J(w,b)$ is the cost function, $m$ is the number of training examples, $y^{(i)}$ is a feature, and $\hat{y}^{(i)}$ is a prediction.
+We want our model to be as accurate as possible i.e. minimizing the deviation between the model's predictions and the actual targets. If it wasn't already obvious, this is just minimizing the cost function. So our goal would be to find the values of $w$ and $b$ that produce the lowest possible output of the cost function:
+$$
+\min_{w,b}J(w,b)
+$$
+Usually, a algorithm handles the cost function minimization. The model autonomously adjusts its internal parameters using this algorithm. This process is called _training_.
+So, what does this minimization process look like?
+
+## Visualizing the Cost Function
