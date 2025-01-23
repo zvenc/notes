@@ -4,4 +4,4 @@
 - **projects**: a showcase of my work.
 
 ## you can find me on:
-- **X**: [@zvenc](https://twitter.com/zvenc_)
+- **X**: [@nmapped](https://twitter.com/nmapped)
