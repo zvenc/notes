@@ -1,14 +1,7 @@
-# Welcome to My Corner of the Web 🌐
+## what's here?
+- **blog**: documenting whatever i learn and maybe one or two personal opinions.
+- **resources**: my go-to tools, books, and articles.
+- **projects**: a showcase of my work.
 
-Hello there, my name is [redacted]. This site houses my **blog**, **resource recommendations**, and **projects**.
-
-## What's here?
-- **Blog**: Documenting whatever I learn and maybe one or two personal opinions.
-- **Resources**: My go-to tools, books, and articles.
-- **Projects**: A showcase of my work.
-
-## You can contact me through:
-- **Email**: [mail.zvenc@proton.me](mailto:mail.zvenc@proton.me)
-- **Twitter**: [@zvenc](https://twitter.com/zvenc_)
-
----
+## you can find me on:
+- **X**: [@zvenc](https://twitter.com/zvenc_)
