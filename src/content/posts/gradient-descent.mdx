@@ -20,4 +20,166 @@ $$
 Usually, a algorithm handles the cost function minimization. The model autonomously adjusts its internal parameters using this algorithm. This process is called _training_.
 So, what does this minimization process look like?
 
-## Visualizing the Cost Function
+- remember shapes
+## Gradient Descent 
+Gradient descent is an algorithm used to minimize the value of functions. It's used for linear regression and many other functions. The algorithm follows these steps:
+1. **Pick random values for $w$ and $b$**: These will be the starting values. It doesn't matter what these values are in linear regression since it has one global minimum (more on that later). This line is probably not going to be the best fit.
+2. **Evaluate cost**: The cost function is evaluated for the chosen values of $w$ and $b$. The goal of gradient descent is to make this value as low as possible. 
+3. **Adjust values**: Gradient descent updates $w$ and $b$ based on the partial derivatives of the cost function. The gradients are computed with respect to $w$ and $b$, then the values of $w$ and $b$ are updated by moving in the opposite direction of the gradient to reduce the error:
+
+    $$
+    w_{new} = w_{old} - \alpha \cdot \frac{\partial J}{\partial w}
+    $$
+    $$
+    b_{new} = b_{old} - \alpha \cdot \frac{\partial J}{\partial b}
+    $$
+
+    where $\alpha$ is the learning rate. It controls how big each update step is. If $\alpha$ is too small, learning will be slow, and if it's too large, the updates will jump around, possibly diverging (getting farther away from the minimum) or never settling.
+
+4. **Repeat until convergence**: $w$ and $b$ and continuously updated over multiple iterations until the cost function stops decreasing significantly, or at all.
+
+Note that for linear regression, gradient descent will always converge (settle on a single value and stop changing) because, as I mentioned before, there is one global minimum. This is because the cost function (MSE) is a *convex* function i.e. it's plot takes the shape of a paraboloid (a bowl) which has one lowest point. This is not the case with all models. Gradient descent is also applied to deep learning models, and it's behavior is less straightforward in such situations. The cost function is *non-convex*, meaning it has multiple peaks and valleys. The parameters of a neural network interact in complex ways, making the cost function *high-dimensional* (many independent variables/parameters). The cost function has *local minima* which are points where the function is lower than other nearby points but not the lowest overall. This is important because in linear regression, we don't have to worry about getting stuck on a bad minimum and we can start at any point and still arrive at the minimum. This is not the case with neural nets; starting points matter. A number of techniques are used to help neural networks escape bad local minima and reach better solutions.
+
+## Gradient Descent in Action
+Let's observe an actual calculation for **one iteration** of gradient descent in linear regression:
+
+We have three data points:  
+$$
+(1,2), (2,3), (3,6)
+$$
+Our linear model is:
+$$
+y = wx + b
+$$
+We start with an initial guess:
+$$
+w = 0, \quad b = 0
+$$
+We'll use a **learning rate** ($\alpha$) of **0.1**.
+
+Using $w = 0$ and $b = 0$, we predict:
+
+| $x_i$ | $y_i$ (actual) | Predicted $y_i = wx_i + b$ |
+|----|----|----|
+| 1  | 2  | $0(1) + 0 = 0$ |
+| 2  | 3  | $0(2) + 0 = 0$ |
+| 3  | 6  | $0(3) + 0 = 0$ |
+
+Predicted values: **[0, 0, 0]**
+
+The errors are:
+$$
+\text{error} = y_i - \hat{y}_i
+$$
+
+| $x_i$ | $y_i$ | $\hat{y}_i$ | $y_i - \hat{y}_i$ |
+|----|----|----|----|
+| 1  | 2  | 0  | $2 - 0 = 2$ |
+| 2  | 3  | 0  | $3 - 0 = 3$ |
+| 3  | 6  | 0  | $6 - 0 = 6$ |
+
+Error values: **[2, 3, 6]**
+
+We now compute the **partial derivatives**:
+
+$$
+\frac{\partial J}{\partial w} = -\frac{2}{n} \sum x_i (y_i - \hat{y}_i)
+$$
+$$
+= -\frac{2}{3} \left[ (1 \times 2) + (2 \times 3) + (3 \times 6) \right]
+$$
+$$
+= -\frac{2}{3} \left[ 2 + 6 + 18 \right]
+$$
+$$
+= -\frac{2}{3} \times 26 = -\frac{52}{3} \approx -17.33
+$$
+
+$$
+\frac{\partial J}{\partial b} = -\frac{2}{n} \sum (y_i - \hat{y}_i)
+$$
+$$
+= -\frac{2}{3} (2 + 3 + 6)
+$$
+$$
+= -\frac{2}{3} \times 11 = -\frac{22}{3} \approx -7.33
+$$
+
+Using the gradient descent update rule:
+
+$$
+w_{old} = w_{new} - \alpha \cdot \frac{\partial J}{\partial w}
+$$
+$$
+b_{old} = b_{new} - \alpha \cdot \frac{\partial J}{\partial b}
+$$
+
+Substituting values:
+
+$$
+w = 0 - (0.1 \times -17.33) = 0 + 1.733 = 1.733
+$$
+$$
+b = 0 - (0.1 \times -7.33) = 0 + 0.733 = 0.733
+$$
+
+After **one iteration**, our new model is:
+
+$$
+y = 1.733x + 0.733
+$$
+
+Let's compare our **original guess** ($w = 0, b = 0$) and our **updated values** ($w = 1.733, b = 0.733$) to see why we are closer to the best-fit line.
+
+### How do we know the line has impoved?
+Our initial prediction for each $x$:
+
+$$
+\hat{y} = 0x + 0 = 0
+$$
+
+| $x_i$ | $y_i$ (actual) | $\hat{y}_i$ (predicted) | Error $(y_i - \hat{y}_i)$ |
+|----|----|----|----|
+| 1  | 2  | 0  | 2 |
+| 2  | 3  | 0  | 3 |
+| 3  | 6  | 0  | 6 |
+
+Total error is large because all predictions are 0.
+
+Now, we compute new predictions:
+
+$$
+\hat{y} = 1.733x + 0.733
+$$
+
+| $x_i$ | $y_i$ (actual) | $\hat{y}_i = 1.733x + 0.733$ | New Error $(y_i - \hat{y}_i)$ |
+|----|----|----|----|
+| 1  | 2  | $1.733(1) + 0.733 = 2.466$ | $2 - 2.466 = -0.466$ |
+| 2  | 3  | $1.733(2) + 0.733 = 4.199$ | $3 - 4.199 = -1.199$ |
+| 3  | 6  | $1.733(3) + 0.733 = 5.932$ | $6 - 5.932 = 0.068$ |
+
+Our new errors are **smaller** than before. The model is now **closer** to the actual data points.
+
+We measure how good a model is using **Mean Squared Error (MSE)**:
+
+$
+\text{MSE} = \frac{1}{n} \sum (y_i - \hat{y}_i)^2
+$
+
+**Before Update ($w=0, b=0$):**
+$$
+\text{MSE} = \frac{1}{3} [(2-0)^2 + (3-0)^2 + (6-0)^2]
+$$
+$$
+= \frac{1}{3} [4 + 9 + 36] = \frac{49}{3} \approx 16.33
+$$
+
+**After One Update ($w=1.733, b=0.733$):**
+$$
+\text{MSE} = \frac{1}{3} [(-0.466)^2 + (-1.199)^2 + (0.068)^2]
+$$
+$$
+= \frac{1}{3} [0.217 + 1.438 + 0.005] = \frac{1.66}{3} \approx 0.553
+$$
+
+The error **dropped significantly** from **16.33 to 0.553** in just one step. That's gradient descent in action.
