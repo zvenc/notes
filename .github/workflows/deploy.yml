@@ -14,8 +14,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout your repository using git
-        uses: actions/checkout@v4      # Updated from v3
-      - name: Install, build, and upload your site
+        uses: actions/checkout@v4
+      - name: Setup Artifact uploads
+        uses: actions/upload-artifact@v4
+        with:
+          retention-days: 1
+      - name: Install, build, and upload site
         uses: withastro/action@v1
 
   deploy:
@@ -27,4 +31,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4   # Updated from v1
+        uses: actions/deploy-pages@v4
